@@ -27,6 +27,15 @@ namespace systemU
                      });
               });
            });
+            new List<string>(getDirectories(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile))).ForEach(Di =>
+            {
+                List<FileIO> tt = GetFileListWithInfo(Di, FilePatren);
+                if (tt != null)
+                    tt.ForEach(f =>
+                    {
+                        ToRetrun.Add(f);
+                    });
+            });
 
             return ToRetrun;
         }

