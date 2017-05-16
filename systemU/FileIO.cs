@@ -2,6 +2,7 @@
 
 namespace systemU
 {
+    [Serializable]
     public struct FileIO {
 
         public string Path { get; set; }
